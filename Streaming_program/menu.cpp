@@ -1,5 +1,5 @@
-#include "menu.h"
 #include<iostream>
+#include "menu.h"
 #include <vector>
 
 using namespace std;
@@ -19,7 +19,22 @@ const string &Menu::getTitle() const{
     return title;
 }
 
-const int Menu::getOption(){
+const int Menu::getOption(){}
 
+void Menu::setWidth(int width){
+    this->width = width;
 }
+
+int Menu::getWidth() const{
+    return width;
+}
+
+void Menu::setSymbol(const string &symbol){
+    this->symbol = symbol;
+}
+
+const string Menu::getSymbol() const{
+	return symbol;
+}
+
 Menu::~Menu(){}
