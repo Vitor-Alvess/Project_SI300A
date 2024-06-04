@@ -10,16 +10,19 @@ class Menu{
         string title;
         string choice_msg;
         string symbol;
+        bool firstTry;
         int width;
         vector<string> &options;
-        void makeDecorator();
+        const string makeDecorator();
+        const bool isNotValidOption(unsigned int opt) const;
 
     public:
-        Menu(vector<string> &itens, string title, string choice_msg = "Option: ");
+        Menu(vector<string> &itens, string title, string choice_msg = "Opcao: ");
         const string &getTitle() const;
         const int getOption();
 
         void setDecorator(const string &decorator, int width);
+        
 
         int getWidth() const;
 		void setWidth(int width = 0);
