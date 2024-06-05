@@ -6,7 +6,7 @@
 using namespace std;
 
 class Menu{
-    private:
+    protected:
         string title;
         string choice_msg;
         string symbol;
@@ -17,7 +17,7 @@ class Menu{
         const bool isNotValidOption(unsigned int opt) const;
 
     public:
-        Menu(vector<string> &itens, string title, string choice_msg = "Opcao: ");
+        Menu(vector<string> &options, string title, string choice_msg = "Opcao: ");
         const string &getTitle() const;
         const int getOption();
 
