@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <vector>
+#include"utils.cpp"
+
 using namespace std;
 
 class Menu{
@@ -10,11 +12,14 @@ class Menu{
         string title;
         string choice_msg;
         string symbol;
+        string WelcomeMessage;
+        bool firstWelcome;
         bool firstTry;
         int width;
         vector<string> &options;
         const string makeDecorator();
         const bool isNotValidOption(unsigned int opt) const;
+        void setWelcomeMessage(string WelcomeMessage);
 
     public:
         Menu(vector<string> &options, string title, string choice_msg = "Opcao: ");
@@ -29,6 +34,9 @@ class Menu{
 
         const string getSymbol() const;
 		void setSymbol(const string &symbol = "=");
+
+        string getWelcomeMessage();
+        void printWelcome(bool firstWelcome);
 
         virtual ~Menu();
 };

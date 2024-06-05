@@ -5,33 +5,25 @@ using namespace std;
 
 Menu::Menu(vector<string> &options, string title, string choice_msg):
         options(options), title(title), choice_msg(choice_msg){
-            this->setWidth();
-            this->setSymbol();
+            this->setWidth(WIDTH);
+            this->setSymbol(SYMBOL);
+            this->setWelcomeMessage("SISTEMA DE CATÁLOGO DE SÉRIES\nBem Vindo!");
         }
 
-void Menu::setDecorator(const string &symbol, int width){
-    this->symbol = symbol;
-    this->width = width;
+const string &Menu::getTitle() const{
+    return title;
 }
 
-const bool Menu::isNotValidOption(unsigned int opt) const{
-    if ((opt < 1) || (opt > options.size())){
-        cout << "Opcao invalida!" << endl;
-        return true;
-    }
-    else
-        return false;
-}
 const int Menu::getOption(){
     unsigned int selected_option;
     bool firstTry = true;
     string decorator = makeDecorator();
-
+    printWelcome(true);
     do{
         if (firstTry){
             unsigned int index;
             cout << decorator << endl;
-            cout << title << endl;
+            cout << getTitle() << endl;
 
             for (index = 0; index < options.size(); index++){
                 cout << index + 1 << " - " << options.at(index) << endl;
@@ -46,6 +38,52 @@ const int Menu::getOption(){
     cin.ignore();
     return selected_option;
 }
+
+void Menu::setDecorator(const string &symbol, int width){
+    this->symbol = symbol;
+    this->width = width;
+}
+
+int Menu::getWidth() const{
+    return width;
+}
+
+void Menu::setWidth(int width){
+    this->width = width;
+}
+
+const string Menu::getSymbol() const{
+	return symbol;
+}
+
+void Menu::setSymbol(const string &symbol){
+    this->symbol = symbol;
+}
+
+string Menu::getWelcomeMessage(){
+    return WelcomeMessage;
+}
+
+void Menu::printWelcome(bool firstWelcome){
+    if (firstWelcome){
+        cout << WelcomeMessage << endl;
+        firstWelcome = false;
+    }
+    else
+        return;
+}
+
+Menu::~Menu(){}
+
+const bool Menu::isNotValidOption(unsigned int opt) const{
+    if ((opt < 1) || (opt > options.size())){
+        cout << "Opcao invalida!" << endl;
+        return true;
+    }
+    else
+        return false;
+}
+
 const string Menu::makeDecorator(){
     string sym = getSymbol();
     if (!width){
@@ -63,25 +101,7 @@ const string Menu::makeDecorator(){
 
     return buffer;
 }
-const string &Menu::getTitle() const{
-    return title;
+
+void Menu::setWelcomeMessage(string WelcomeMessage){
+    this->WelcomeMessage = WelcomeMessage;
 }
-
-
-void Menu::setWidth(int width){
-    this->width = width;
-}
-
-int Menu::getWidth() const{
-    return width;
-}
-
-void Menu::setSymbol(const string &symbol){
-    this->symbol = symbol;
-}
-
-const string Menu::getSymbol() const{
-	return symbol;
-}
-
-Menu::~Menu(){}
