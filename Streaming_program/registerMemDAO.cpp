@@ -9,6 +9,25 @@ vector<Register*>& registerMemDAO::getAllRegisters(){
     return (memoryDBConnection->getRegisterList());
 }
 
+Register* registerMemDAO::getRegisterById(int registerId){
+    vector<Register*> &registers = memoryDBConnection->getRegisterList();
+    vector<Register*>::iterator registersIterator = registers.begin();
+    bool found = false;
+    Register *buffer = NULL;
+
+    while ((!found) && (registersIterator != registers.begin())){
+        
+        if ((*registersIterator)->getRegisterId() == registerId){
+            found = true;
+            buffer = *registersIterator;
+        }
+
+        registersIterator++;
+    }
+
+    return (buffer);
+}
+
 void registerMemDAO::addRegister(Register *Register){
     (memoryDBConnection->getRegisterList()).push_back(Register);
 }
@@ -25,7 +44,12 @@ void registerMemDAO::deleteRegister(int registerID){
             delete *registerIterator;
             registers.erase(registerIterator);
         }
-        
+
         registerIterator++;
     }
+}
+
+void registerMemDAO::editRegister(Register *Register){
+    deleteRegister(Register->getRegisterId());
+    addRegister(Register);
 }

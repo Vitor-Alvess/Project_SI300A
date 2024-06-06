@@ -12,7 +12,7 @@ class registerMemDAO{
         virtual ~registerMemDAO();
 
         virtual vector<Register*>& getAllRegisters();
-
+        virtual Register* getRegisterById(int registerId);
         virtual void addRegister(Register *Register);
         virtual void deleteRegister(int registerID);
         virtual void editRegister(Register *Register);

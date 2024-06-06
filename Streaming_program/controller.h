@@ -4,13 +4,21 @@
 
 #include "creditsAndHelp.h"
 #include "menu.h"
+#include "register.h"
+#include "registerMemDAO.h"
+#include "memoryDBConnection.h"
 
 using namespace std;
 
 class controller{
     private:
+        MemoryDBConnection *memoryDBConnection;
+        registerMemDAO *registerDAO;
+        Register *lastRegisterDeleted;
+
         void actionHelp();
         void actionCredits();
+        void actionRegisters();
         void actionReports();
         void launchActions(string title, vector<string> menuOptions, vector<void (controller::*)()> functions);
 
@@ -19,6 +27,11 @@ class controller{
         void deleteRegister();
         void recoverRegister();
         void registersList();
+
+        void OrderByName();
+        void OrderByReleaseYear();
+        void OrderByStreaming();
+        void OrderByScore();
 
     public:
         controller();
