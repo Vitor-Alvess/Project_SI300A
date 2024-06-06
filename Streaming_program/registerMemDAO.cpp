@@ -12,10 +12,10 @@ vector<Register*>& registerMemDAO::getAllRegisters(){
 Register* registerMemDAO::getRegisterById(int registerId){
     vector<Register*> &registers = memoryDBConnection->getRegisterList();
     vector<Register*>::iterator registersIterator = registers.begin();
-    bool found = false;
     Register *buffer = NULL;
+    bool found = false;
 
-    while ((!found) && (registersIterator != registers.begin())){
+    while ((!found) && (registersIterator != registers.end())){
         
         if ((*registersIterator)->getRegisterId() == registerId){
             found = true;

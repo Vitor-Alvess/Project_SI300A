@@ -16,9 +16,9 @@ const string &Menu::getTitle() const{
 
 const int Menu::getOption(){
     unsigned int selected_option;
-    bool firstTry = true;
+    firstTry = true;
     string decorator = makeDecorator();
-    printWelcome(true);
+    printWelcome();
     do{
         if (firstTry){
             unsigned int index;
@@ -64,13 +64,8 @@ string Menu::getWelcomeMessage(){
     return WelcomeMessage;
 }
 
-void Menu::printWelcome(bool firstWelcome){
-    if (firstWelcome){
+void Menu::printWelcome(){
         cout << WelcomeMessage << endl;
-        firstWelcome = false;
-    }
-    else
-        return;
 }
 
 Menu::~Menu(){}
@@ -103,5 +98,5 @@ const string Menu::makeDecorator(){
 }
 
 void Menu::setWelcomeMessage(string WelcomeMessage){
-    this->WelcomeMessage = WelcomeMessage;
+    (this->title == "MENU PRINCIPAL") ? this->WelcomeMessage = WelcomeMessage : "";
 }

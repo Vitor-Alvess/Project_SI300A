@@ -36,6 +36,16 @@ class Register{
         string getRegisterStreaming() const;
         float getRegisterScore() const;
 
+        void setRegisterId(int id);
+        void setRegisterName(string name);
+        void setRegisterReleaseYear(int releaseYear);
+        void setRegisterNumOfSeasons(int numOfSeasons);
+        void setRegisterEpisodesTotal(int episodesTotal);
+        void setRegisterMainPlot(string mainPlot);
+        void setRegisterMainCharacters(string mainCharacters);
+        void setRegisterStreaming(string streaming);
+        void setRegisterScore(float score);
+
         virtual ~Register();
 };
 

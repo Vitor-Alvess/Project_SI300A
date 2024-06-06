@@ -50,3 +50,39 @@ string Register::getRegisterStreaming() const{
 float Register::getRegisterScore() const{
     return score;
 }
+
+void Register::setRegisterId(int id){
+    this->id = id;
+}
+
+void Register::setRegisterName(string name){
+    this->name = name;
+}
+
+void Register::setRegisterReleaseYear(int releaseYear){
+    this->releaseYear = releaseYear;
+}
+
+void Register::setRegisterNumOfSeasons(int NumOfSeasons){
+    this->NumOfSeasons = NumOfSeasons;
+}
+
+void Register::setRegisterEpisodesTotal(int episodesTotal){
+    this->episodesTotal = episodesTotal;
+}
+
+void Register::setRegisterMainPlot(string mainPlot){
+    this->mainPlot = mainPlot;
+}
+
+void Register::setRegisterMainCharacters(string mainCharacters){
+    this->mainCharacters = mainCharacters;
+}
+
+void Register::setRegisterStreaming(string streaming){
+    this->streaming = streaming;
+}
+
+void Register::setRegisterScore(float score){
+    this->score = score;
+}

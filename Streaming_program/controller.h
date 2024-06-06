@@ -26,12 +26,12 @@ class controller{
         void editRegister();
         void deleteRegister();
         void recoverRegister();
-        void registersList();
 
         void OrderByName();
         void OrderByReleaseYear();
         void OrderByStreaming();
         void OrderByScore();
+        void printRegistersList();
 
     public:
         controller();

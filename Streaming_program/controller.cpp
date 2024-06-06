@@ -1,6 +1,10 @@
 #include "controller.h"
+#include "utils.h"
+
 #include <iostream>
 #include <string>
+#include <cstring>
+#include <algorithm>
 
 using namespace std;
 
@@ -52,7 +56,7 @@ void controller::actionCredits(){
 
 void controller::actionReports(){
     vector<string> reports_Options
-        {"Ordenar por nome", "Ordenar por ano", "Ordenar por serviço de streaming", "Ordenar por nota"};
+        {"Ordenar por nome", "Ordenar por ano", "Ordenar por serviço de streaming", "Ordenar por nota", "Voltar"};
     vector<void (controller::*)()> functions
         {&controller::OrderByName, &controller::OrderByReleaseYear, &controller::OrderByStreaming, &controller::OrderByScore};
     launchActions("RELATÓRIOS", reports_Options, functions);
@@ -66,7 +70,7 @@ void controller::launchActions(string title, vector<string> options, vector<void
         }
     }
     catch (exception &myError){
-        cout << "unexpected problem ocurred when trying to launch actions..." << string(myError.what()); 
+        cout << "Um problema inesperado ocorreu... " << string(myError.what()); 
     }
 }
 
@@ -103,6 +107,9 @@ void controller::addRegister(){
     cout << "Personagens principais: ";
     getline(cin, registerMainCharacters);
 
+    cout << "Serviço de streaming: ";
+    getline(cin, registerStreaming);
+
     cout << "Nota: ";
     cin >> registerScore;
     cin.ignore();
@@ -124,6 +131,9 @@ void controller::addRegister(){
 
     else if (registerMainCharacters.empty())
         cout << "Campo \"Personagens principais\" está vazio. Abortando..." << endl;
+
+    else if (registerStreaming.empty())
+        cout << "Campo \"Serviço de streaming\" está vazio. Abortando..." << endl;
     
     else if(!registerScore)
         cout << "Campo \"Nota\" está vazio. Abortando..." << endl;
@@ -132,7 +142,6 @@ void controller::addRegister(){
         registerDAO->addRegister(new Register(registerName, registerReleaseYear, registerNumOfSeasons, registerEpisodesTotal, 
                                 registerMainPlot, registerMainCharacters, registerStreaming, registerScore));
 }
-
 
 void controller::editRegister(){
     int registerId = 0;
@@ -186,6 +195,9 @@ void controller::editRegister(){
 
             cout << "Personagens principais: ";
             getline(cin, registerMainCharacters);
+
+            cout << "Serviço de streaming: ";
+            getline(cin, registerStreaming);
 
             cout << "Nota: ";
             cin >> registerScore;
@@ -252,9 +264,113 @@ void controller::deleteRegister(){
 void controller::recoverRegister(){
     if (lastRegisterDeleted != NULL){
         cout << "Recuperando último registro apagado..." << endl;
-        registerDAO->addRegister(lastRegisterDeleted);
+        registerDAO->addRegister(new Register(lastRegisterDeleted->getRegisterName(),
+                                            lastRegisterDeleted->getRegisterReleaseYear(),
+                                            lastRegisterDeleted->getRegisterNumOfSeasons(),
+                                            lastRegisterDeleted->getRegisterEpisodesTotal(),
+                                            lastRegisterDeleted->getRegisterMainPlot(),
+                                            lastRegisterDeleted->getRegisterMainCharacters(),
+                                            lastRegisterDeleted->getRegisterStreaming(),
+                                            lastRegisterDeleted->getRegisterScore()
+                                            )
+                                        );
     }
     else{
-        cout << "Não há registros para se recuperar" << endl;
+        cout << "Não há registros para se recuperar." << endl;
     }
+}
+
+void controller::OrderByName(){
+    vector<Register*> &registersList = registerDAO->getAllRegisters();
+
+    if (!registersList.empty()){
+        sort(registersList.begin(), registersList.end(), [](Register* previousRegister, Register* nextRegister){
+                                                              return ((previousRegister->getRegisterName()) < (nextRegister->getRegisterName())); 
+                                                            }
+                                                        ); 
+
+            utils::printList(registersList);
+
+    }
+    else
+        cout << "Não existem registros para serem listados." << endl;
+}
+
+void controller::OrderByReleaseYear(){
+    vector<Register*> &registersList = registerDAO->getAllRegisters();
+
+    if (!registersList.empty()){ 
+    
+        int i, j;
+
+        for (j = registersList.size()-1; j > 0; j--){
+
+            for(i = 0; i < j; i++){
+
+                if ((registersList.at(i)->getRegisterReleaseYear()) > registersList.at(i+1)->getRegisterReleaseYear()){
+                    utils::functionToSwap(i, registersList);
+                }
+
+            }
+
+        }
+
+        utils::printList(registersList);
+
+    }
+    else
+        cout << "Não existem registros para serem listados." << endl;
+}
+
+void controller::OrderByStreaming(){
+    vector<Register*> &registersList = registerDAO->getAllRegisters();
+    if (!registersList.empty()){
+
+        int i, j;
+        const char *aux1, *aux2;
+
+        for (j = registersList.size()-1; j > 0; j--){
+
+            for(i = 0; i < j; i++){
+
+                aux1 = (registersList.at(i)->getRegisterStreaming()).c_str();
+                aux2 = (registersList.at(i+1)->getRegisterStreaming()).c_str();
+
+                if (strcasecmp(aux1, aux2) > 0){
+                    utils::functionToSwap(i, registersList);
+                }
+
+            }
+
+        }
+        
+        utils::printList(registersList);
+
+    }
+    else
+        cout << "Não existem registros para serem listados." << endl;    
+}
+
+void controller::OrderByScore(){
+    vector<Register*> &registersList = registerDAO->getAllRegisters();
+    if(!registersList.empty()){
+
+        int i, j;
+
+        for (j = registersList.size()-1; j > 0; j--){
+
+            for(i = 0; i < j; i++){
+                
+                if ((registersList.at(i)->getRegisterScore()) < registersList.at(i+1)->getRegisterScore()){
+                    utils::functionToSwap(i, registersList);
+                }
+            }
+
+        }
+        
+        utils::printList(registersList);
+
+    }
+    else
+        cout << "Não existem registros para serem listados." << endl;
 }

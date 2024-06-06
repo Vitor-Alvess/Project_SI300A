@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include"utils.cpp"
+#include"utils.h"
 
 using namespace std;
 
@@ -13,7 +13,6 @@ class Menu{
         string choice_msg;
         string symbol;
         string WelcomeMessage;
-        bool firstWelcome;
         bool firstTry;
         int width;
         vector<string> &options;
@@ -36,7 +35,7 @@ class Menu{
 		void setSymbol(const string &symbol = "=");
 
         string getWelcomeMessage();
-        void printWelcome(bool firstWelcome);
+        void printWelcome();
 
         virtual ~Menu();
 };
