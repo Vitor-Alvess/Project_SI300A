@@ -23,7 +23,7 @@ controller::~controller(){};
 
 void controller::start(){
     vector<string> MainMenu_Options
-        {"Relatórios", "Creditos", "Ajuda", "Sair"};
+        {"Registros", "Creditos", "Ajuda", "Sair"};
     vector<void (controller::*)()> functions
         {&controller::actionRegisters, &controller::actionHelp, &controller::actionCredits};
     launchActions("MENU PRINCIPAL", MainMenu_Options, functions);
@@ -38,12 +38,14 @@ void controller::actionRegisters(){
 }
 
 void controller::actionHelp(){
+    utils::clear();
     string helpMessage = "texto de ajuda\n";
     creditsAndHelp *help = new creditsAndHelp(helpMessage, "AJUDA");
     help->printMessage(help->getMessage());
 }
 
 void controller::actionCredits(){
+    utils::clear();
     string creditsMessage = "Desenvolvido em 2024 por:\n"
                         "- Laura Gouveia Nunes\n"
                         "- Matheus Cirillo\n"
@@ -64,13 +66,16 @@ void controller::actionReports(){
 
 void controller::launchActions(string title, vector<string> options, vector<void (controller::*)()> functions){
     try{
+        utils::clear();
         Menu menu(options, title);
         while(int choice = menu.getOption()){
+            if (choice == functions.size()+1)
+                return;
             (this->*functions.at(choice - 1))();
         }
     }
-    catch (exception &myError){
-        cout << "Um problema inesperado ocorreu... " << string(myError.what()); 
+    catch (const exception &myError){
+        cout << "Um problema inesperado ocorreu. " << string(myError.what()); 
     }
 }
 
@@ -374,3 +379,4 @@ void controller::OrderByScore(){
     else
         cout << "Não existem registros para serem listados." << endl;
 }
+

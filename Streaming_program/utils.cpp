@@ -48,3 +48,26 @@ void utils::printList(vector<Register*> &list){
         cout << left << setfill('.') << setw(50) << buffer->getRegisterName() << " | "<< endl;
     }
 }
+
+void utils::bye(){
+    cout << "Encerrando..." << endl;
+}
+
+void utils::init(){
+    cout << "Iniciando..." << endl;
+}
+
+void utils::clear(){
+    if (IS_WINDOWS)
+        system("cls");
+    else
+        system("clear");
+}
+
+void utils::pause(){
+    if (IS_WINDOWS) {
+        system("pause");
+    } else {
+        system("read -p \"\nPressione a tecla enter para continuar...\" saindo");
+    }
+}
