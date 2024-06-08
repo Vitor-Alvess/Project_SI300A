@@ -25,6 +25,8 @@ class Register{
 
         Register(string name, int releaseYear, int NumOfSeasons, int episodesTotal,
                 string mainPlot, string mainCharacters, string streaming, float score);
+        
+        Register(Register* r);
 
         int getRegisterId() const;
         string getRegisterName() const;

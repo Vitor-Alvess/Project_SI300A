@@ -4,6 +4,9 @@
 #include<iostream>
 #include<iomanip>
 #include<vector>
+#include <chrono>
+#include<unistd.h>
+
 
 #include "register.h"
 
@@ -24,7 +27,9 @@ using namespace std;
 class utils{
     public:
         static void functionToSwap(int i, vector<Register*> &list);
+        static void listHeader();
         static void printList(vector<Register*> &list);
+        static void sleepFunc(unsigned int seconds);
         static void bye();
         static void init();
         static void clear();

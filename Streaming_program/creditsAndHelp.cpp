@@ -1,6 +1,5 @@
 #include "creditsAndHelp.h"
 
-
 creditsAndHelp::creditsAndHelp(string message, string title, string end_msg){
     this->end_msg = end_msg;
     this->title = title;
@@ -26,5 +25,5 @@ void creditsAndHelp::setMessage(string message){
 }
 
 creditsAndHelp::~creditsAndHelp(){
-   getchar();
+   utils::pause();
 }

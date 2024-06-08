@@ -15,15 +15,20 @@ controller::controller(){
 
     registerDAO->addRegister(new Register("The Flash", 2014, 9, 184, "Grant Gustin, Danielle Panabaker, Stephen Amell", "Barry Allen, Iris West, Wally West, Vibro, Caitlin Snow", "Netflix", 7.5));
     registerDAO->addRegister(new Register("The Office", 2005, 9, 201, "Steve Carell, John Krasinski, Jenna Fischer", "Michael Scott, Dwigth Schrute, Pamela Weesly, Jim Halpert", "Netflix", 9));
-    registerDAO->addRegister(new Register("Stranger Things", 2016, 4, 34, "Finn Wolfhard, Millie Bobby Brown, David Harbour", "Mike Weeler, Eleven, Dustin Henderson, Lucas Sinclair, Will Byers, Max Mayfield", "Netflix", 8.7));
+    registerDAO->addRegister(new Register("Stranger Things", 2016, 4, 34, "Finn Wolfhard, Millie Bobby Brown, David Harbour", "Mike, Eleven, Dustin, Lucas, Will, Max", "Netflix", 8.7));
 
 };
 
-controller::~controller(){};
+controller::~controller(){
+    delete registerDAO;
+    registerDAO = NULL;
+    delete memoryDBConnection;
+    memoryDBConnection = NULL;  
+};
 
 void controller::start(){
     vector<string> MainMenu_Options
-        {"Registros", "Creditos", "Ajuda", "Sair"};
+        {"Registros", "Ajuda", "Créditos ", "Sair"};
     vector<void (controller::*)()> functions
         {&controller::actionRegisters, &controller::actionHelp, &controller::actionCredits};
     launchActions("MENU PRINCIPAL", MainMenu_Options, functions);
@@ -42,6 +47,7 @@ void controller::actionHelp(){
     string helpMessage = "texto de ajuda\n";
     creditsAndHelp *help = new creditsAndHelp(helpMessage, "AJUDA");
     help->printMessage(help->getMessage());
+    utils::clear();
 }
 
 void controller::actionCredits(){
@@ -54,6 +60,7 @@ void controller::actionCredits(){
                         "- Vitor Alves\n";
     creditsAndHelp *credits = new creditsAndHelp(creditsMessage, "CRÉDITOS");
     credits->printMessage(credits->getMessage());
+    utils::clear();
 }
 
 void controller::actionReports(){
@@ -69,8 +76,12 @@ void controller::launchActions(string title, vector<string> options, vector<void
         utils::clear();
         Menu menu(options, title);
         while(int choice = menu.getOption()){
-            if (choice == functions.size()+1)
+            if (choice == functions.size()+1){    
+                if (menu.getTitle() == "REGISTROS") 
+                    utils::clear();
                 return;
+            }   
+
             (this->*functions.at(choice - 1))();
         }
     }
@@ -251,11 +262,12 @@ void controller::deleteRegister(){
                     "(N) para cancelar:" << endl;
             getline(cin, choice);
 
+
             if(toupper(choice.at(0)) == 'S'){
+            
                 registerDAO->deleteRegister(registerId);
             }
 
-            lastRegisterDeleted = oldRegister;
         }
         else{
             cout << "Registro não encontrado. Operação cancelada." << endl;
@@ -267,28 +279,25 @@ void controller::deleteRegister(){
 }
 
 void controller::recoverRegister(){
-    if (lastRegisterDeleted != NULL){
-        cout << "Recuperando último registro apagado..." << endl;
-        registerDAO->addRegister(new Register(lastRegisterDeleted->getRegisterName(),
-                                            lastRegisterDeleted->getRegisterReleaseYear(),
-                                            lastRegisterDeleted->getRegisterNumOfSeasons(),
-                                            lastRegisterDeleted->getRegisterEpisodesTotal(),
-                                            lastRegisterDeleted->getRegisterMainPlot(),
-                                            lastRegisterDeleted->getRegisterMainCharacters(),
-                                            lastRegisterDeleted->getRegisterStreaming(),
-                                            lastRegisterDeleted->getRegisterScore()
-                                            )
-                                        );
+    if (registerDAO->getLastDeleted() != NULL) {
+
+        registerDAO->recoverRegister();
+        cout << "Registro recuperado!" << endl;
+
     }
     else{
-        cout << "Não há registros para se recuperar." << endl;
-    }
+
+        cout << "Não há registros para se recuperar" << endl;
+
+    } 
+
 }
 
 void controller::OrderByName(){
     vector<Register*> &registersList = registerDAO->getAllRegisters();
 
     if (!registersList.empty()){
+
         sort(registersList.begin(), registersList.end(), [](Register* previousRegister, Register* nextRegister){
                                                               return ((previousRegister->getRegisterName()) < (nextRegister->getRegisterName())); 
                                                             }
@@ -329,25 +338,13 @@ void controller::OrderByReleaseYear(){
 
 void controller::OrderByStreaming(){
     vector<Register*> &registersList = registerDAO->getAllRegisters();
+
     if (!registersList.empty()){
 
-        int i, j;
-        const char *aux1, *aux2;
-
-        for (j = registersList.size()-1; j > 0; j--){
-
-            for(i = 0; i < j; i++){
-
-                aux1 = (registersList.at(i)->getRegisterStreaming()).c_str();
-                aux2 = (registersList.at(i+1)->getRegisterStreaming()).c_str();
-
-                if (strcasecmp(aux1, aux2) > 0){
-                    utils::functionToSwap(i, registersList);
-                }
-
-            }
-
-        }
+        sort(registersList.begin(), registersList.end(), [](Register* previousRegister, Register* nextRegister){
+                                                            return ((previousRegister->getRegisterStreaming()) < (nextRegister->getRegisterStreaming()));
+                                                            }
+                                                        );
         
         utils::printList(registersList);
 

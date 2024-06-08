@@ -40,7 +40,10 @@ void registerMemDAO::deleteRegister(int registerID){
     while((!found) && (registerIterator != registers.end())){
 
         if ((*registerIterator)->getRegisterId() == registerID){
+            lastDeleted = new Register(*registerIterator);
+
             found = true;
+
             delete *registerIterator;
             registers.erase(registerIterator);
         }
@@ -52,4 +55,13 @@ void registerMemDAO::deleteRegister(int registerID){
 void registerMemDAO::editRegister(Register *Register){
     deleteRegister(Register->getRegisterId());
     addRegister(Register);
+}
+
+void registerMemDAO::recoverRegister(){
+    addRegister(lastDeleted);
+    lastDeleted = NULL;
+}
+
+Register* registerMemDAO::getLastDeleted(){
+    return lastDeleted;
 }

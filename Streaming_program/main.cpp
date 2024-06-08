@@ -7,7 +7,8 @@ using namespace std;
 
 int main(){
     utils::init();
-    
+    utils::sleepFunc(2);
+
     try{
 
         make_unique<controller>() -> start();
@@ -15,11 +16,12 @@ int main(){
     }   
     catch (const exception &myError){
 
-        cout << "Um erro inesperado ocorreu. Execução cancelada." << myError.what();
+        cout << "Um erro inesperado ocorreu. Execução do programa cancelada." << myError.what();
         exit(1);
 
     }
 
     utils::bye();
+    utils::sleepFunc(2);
     return 0;
 }

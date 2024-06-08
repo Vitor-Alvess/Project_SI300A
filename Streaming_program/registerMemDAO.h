@@ -7,6 +7,7 @@ using namespace std;
 class registerMemDAO{
     private:
         MemoryDBConnection* memoryDBConnection;
+        Register* lastDeleted = NULL;
     public:
         registerMemDAO(MemoryDBConnection* memoryDBConnection);
         virtual ~registerMemDAO();
@@ -16,6 +17,8 @@ class registerMemDAO{
         virtual void addRegister(Register *Register);
         virtual void deleteRegister(int registerID);
         virtual void editRegister(Register *Register);
+        virtual void recoverRegister();
+        virtual Register* getLastDeleted();
 };
 
 #endif

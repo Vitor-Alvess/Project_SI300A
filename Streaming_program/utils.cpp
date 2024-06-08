@@ -42,11 +42,37 @@ void utils::functionToSwap(int i, vector<Register*> &list){
     list.at(i+1)->setRegisterScore(auxFloat);
 }
 
+void utils::listHeader(){
+    cout << left << setfill(' ') << setw(6) << "ID" << " | ";
+    cout << left << setfill(' ') << setw(20) << "NOME" << " | ";
+    cout << left << setfill(' ') << setw(4) << "ANO" << " | ";
+    cout << left << setfill(' ') << setw(4) << "TEMP" << " | ";
+    cout << left << setfill(' ') << setw(3) << "EP" << " | ";
+    cout << left << setfill(' ') << setw(60) << "ELENCO PRNCIPAL" << " | ";
+    cout << left << setfill(' ') << setw(60) << "PERSONAGENS PRINCIPAIS" << " | ";
+    cout << left << setfill(' ') << setw(15) << "STREAMING" << " | ";
+    cout << left << setfill(' ') << setw(4) << "NOTA" << " | " << endl;
+    
+}
+
 void utils::printList(vector<Register*> &list){
+    cout << endl;
+    listHeader();
     for (Register *buffer : list){
         cout << right << setfill('0') << setw(6) << buffer->getRegisterId() << " | ";
-        cout << left << setfill('.') << setw(50) << buffer->getRegisterName() << " | "<< endl;
+        cout << left << setfill('.') << setw(20) << buffer->getRegisterName() << " | ";
+        cout << buffer->getRegisterReleaseYear() << " | ";
+        cout << setfill(' ') << setw(4) << buffer->getRegisterNumOfSeasons() << " | ";
+        cout << setfill(' ') << setw(3) << buffer->getRegisterEpisodesTotal() << " | ";
+        cout << setfill('.') << setw(60) << buffer->getRegisterMainPlot() << " | ";
+        cout << setfill('.') << setw(60) << buffer->getRegisterMainCharacters() << " | ";
+        cout << setfill('.') << setw(15) << buffer->getRegisterStreaming() << " | ";
+        cout << setfill(' ') << setw(4) << setprecision(1) << fixed << buffer->getRegisterScore() << " | " << endl;
     }
+}
+
+void utils::sleepFunc(unsigned int seconds){
+    (IS_WINDOWS) ? sleep(seconds) : usleep(seconds*1000000);
 }
 
 void utils::bye(){
