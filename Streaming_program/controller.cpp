@@ -190,7 +190,7 @@ void controller::editRegister(){
             cout << "Streaming: " << oldRegister->getRegisterStreaming() << endl;
             cout << "Nota: " << oldRegister->getRegisterScore() << endl;
 
-            cout << "\nNovos dados (<Enter> para manter os dados):" << endl;
+            cout << "\nNovos dados (Pressione Enter para manter os dados de nomes ou digite 0 para manter os dados de referentes a números):" << endl;
             cout << "Nome: ";
             getline(cin, registerName);
 
@@ -219,14 +219,10 @@ void controller::editRegister(){
             cin >> registerScore;
             cin.ignore();
             
-            registerName = (registerName.empty()) ? oldRegister->getRegisterName() : registerName;
-            registerReleaseYear = (!registerReleaseYear) ? oldRegister->getRegisterReleaseYear() : registerReleaseYear;
-            registerNumOfSeasons = (!registerNumOfSeasons) ? oldRegister->getRegisterNumOfSeasons() : registerNumOfSeasons;
-            registerEpisodesTotal = (!registerEpisodesTotal) ? oldRegister->getRegisterEpisodesTotal() : registerEpisodesTotal;
-            registerMainPlot = (registerMainPlot.empty()) ? oldRegister->getRegisterMainPlot() : registerMainPlot;
-            registerMainCharacters = (registerMainCharacters.empty()) ? oldRegister->getRegisterMainCharacters() : registerMainCharacters;
-            registerStreaming = (registerStreaming.empty()) ? oldRegister->getRegisterStreaming() : registerStreaming;
-            registerScore = (!registerScore) ? oldRegister->getRegisterScore() : registerScore;
+
+            registerDAO->editRegister(oldRegister, registerName, registerReleaseYear, registerNumOfSeasons, registerEpisodesTotal,
+                                    registerMainPlot, registerMainCharacters, registerStreaming, registerScore);
+        
         }
         else{
             cout << "Registro não encontrado. Operação cancelada." << endl;

@@ -16,7 +16,8 @@ class registerMemDAO{
         virtual Register* getRegisterById(int registerId);
         virtual void addRegister(Register *Register);
         virtual void deleteRegister(int registerID);
-        virtual void editRegister(Register *Register);
+        virtual void editRegister(Register *oldRegister, string RegisterName, int releaseYear, int NumOfSeasons, int EpisodesTotal,
+                                string mainPlot, string mainCharacters, string streaming, float score);
         virtual void recoverRegister();
         virtual Register* getLastDeleted();
 };

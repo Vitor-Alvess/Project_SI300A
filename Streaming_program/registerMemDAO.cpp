@@ -52,9 +52,17 @@ void registerMemDAO::deleteRegister(int registerID){
     }
 }
 
-void registerMemDAO::editRegister(Register *Register){
-    deleteRegister(Register->getRegisterId());
-    addRegister(Register);
+void registerMemDAO::editRegister(Register *oldRegister, string registerName, int releaseYear, int NumOfSeasons, int EpisodesTotal,
+                                string mainPlot, string mainCharacters, string streaming, float score){
+            
+            oldRegister->setRegisterName((registerName.empty()) ? oldRegister->getRegisterName() : registerName);
+            oldRegister->setRegisterReleaseYear((!releaseYear) ? oldRegister->getRegisterReleaseYear() : releaseYear);
+            oldRegister->setRegisterNumOfSeasons((!NumOfSeasons) ? oldRegister->getRegisterNumOfSeasons() : NumOfSeasons);
+            oldRegister->setRegisterEpisodesTotal ((!EpisodesTotal) ? oldRegister->getRegisterEpisodesTotal() : EpisodesTotal);
+            oldRegister->setRegisterMainPlot ((mainPlot.empty()) ? oldRegister->getRegisterMainPlot() : mainPlot);
+            oldRegister->setRegisterMainCharacters ((mainCharacters.empty()) ? oldRegister->getRegisterMainCharacters() : mainCharacters);
+            oldRegister->setRegisterStreaming ((streaming.empty()) ? oldRegister->getRegisterStreaming() : streaming);
+            oldRegister->setRegisterScore ((!score) ? oldRegister->getRegisterScore() : score);
 }
 
 void registerMemDAO::recoverRegister(){
