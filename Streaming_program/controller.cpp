@@ -154,9 +154,17 @@ void controller::addRegister(){
     else if(!registerScore)
         cout << "Campo \"Nota\" está vazio. Abortando..." << endl;
 
-    else
-        registerDAO->addRegister(new Register(registerName, registerReleaseYear, registerNumOfSeasons, registerEpisodesTotal, 
-                                registerMainPlot, registerMainCharacters, registerStreaming, registerScore));
+    else{
+        try{
+
+            registerDAO->addRegister(new Register(registerName, registerReleaseYear, registerNumOfSeasons, registerEpisodesTotal, 
+                                    registerMainPlot, registerMainCharacters, registerStreaming, registerScore));
+            cout << "Registro adicionado com sucesso!" << endl;
+
+        } catch(const exception &myError){
+            cout << "Erro inesperado ao adicionar registro. " << myError.what() << endl;
+        }
+    }
 }
 
 void controller::editRegister(){
@@ -219,9 +227,15 @@ void controller::editRegister(){
             cin >> registerScore;
             cin.ignore();
             
-
+        try{
             registerDAO->editRegister(oldRegister, registerName, registerReleaseYear, registerNumOfSeasons, registerEpisodesTotal,
                                     registerMainPlot, registerMainCharacters, registerStreaming, registerScore);
+
+            cout << "Registro alterado com sucesso!" << endl;
+        } 
+        catch(const exception &myError){
+            cout << "Error inesperado ao editar um registro. " << myError.what();
+        }
         
         }
         else{
@@ -258,11 +272,19 @@ void controller::deleteRegister(){
                     "(N) para cancelar:" << endl;
             getline(cin, choice);
 
-
+        try{
             if(toupper(choice.at(0)) == 'S'){
             
                 registerDAO->deleteRegister(registerId);
             }
+
+            cout << "Registro deletado." << endl;
+        }
+        catch(const exception &myError){
+
+            cout << "Erro inesperado ao deletar registro. " << endl;
+
+        }
 
         }
         else{
@@ -276,9 +298,18 @@ void controller::deleteRegister(){
 
 void controller::recoverRegister(){
     if (registerDAO->getLastDeleted() != NULL) {
+        try{
 
-        registerDAO->recoverRegister();
-        cout << "Registro recuperado!" << endl;
+            registerDAO->recoverRegister();
+            cout << "Registro recuperado!" << endl;
+
+        }
+        catch(const exception &myError){
+
+            cout << "Erro inesperado ao recuperar o último registro deletado. " << endl; 
+        
+        }
+
 
     }
     else{

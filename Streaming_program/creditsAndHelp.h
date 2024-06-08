@@ -14,7 +14,7 @@ class creditsAndHelp{
         string end_msg;
         void setMessage(string message);
     public:
-        creditsAndHelp(string message, string title, string end_msg = "Pressione qualquer tecla...");
+        creditsAndHelp(string message, string title);
         string getMessage();
         const string &getTitle() const;
         void printMessage(string message);

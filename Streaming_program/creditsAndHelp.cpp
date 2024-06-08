@@ -1,8 +1,9 @@
 #include "creditsAndHelp.h"
 
-creditsAndHelp::creditsAndHelp(string message, string title, string end_msg){
+creditsAndHelp::creditsAndHelp(string message, string title){
     this->end_msg = end_msg;
     this->title = title;
+    (IS_WINDOWS) ? this->end_msg = "Pressione a tecla enter para voltar..." : this->end_msg = "";
     setMessage(message);
 };
 

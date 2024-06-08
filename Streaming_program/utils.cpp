@@ -94,6 +94,6 @@ void utils::pause(){
     if (IS_WINDOWS) {
         system("pause");
     } else {
-        system("read -p \"\nPressione a tecla enter para continuar...\" saindo");
+        system("read -p \"\nPressione a tecla enter para voltar...\" saindo");
     }
 }
