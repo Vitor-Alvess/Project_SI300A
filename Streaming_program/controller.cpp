@@ -16,7 +16,8 @@ controller::controller(){
     registerDAO->addRegister(new Register("The Flash", 2014, 9, 184, "Grant Gustin, Danielle Panabaker, Stephen Amell", "Barry Allen, Iris West, Wally West, Vibro, Caitlin Snow", "Netflix", 7.5));
     registerDAO->addRegister(new Register("The Office", 2005, 9, 201, "Steve Carell, John Krasinski, Jenna Fischer", "Michael Scott, Dwigth Schrute, Pamela Weesly, Jim Halpert", "Netflix", 9));
     registerDAO->addRegister(new Register("Stranger Things", 2016, 4, 34, "Finn Wolfhard, Millie Bobby Brown, David Harbour", "Mike, Eleven, Dustin, Lucas, Will, Max", "Netflix", 8.7));
-
+    registerDAO->addRegister(new Register("The Mandalorian", 2019, 3, 24, "Pedro Pascal, Giancarlo Exposito", "Mandalorian, Baby Yoda", "Disney+", 8.6));
+    registerDAO->addRegister(new Register("The Boys", 2019, 4, 32, "Antony Starr, Karl Urban, Jack Quaid", "Billy Butcher, Homelander, Soldier Boy, Erin Moriarty", "Prime Video", 8.7));
 };
 
 controller::~controller(){
@@ -298,6 +299,9 @@ void controller::deleteRegister(){
 
 void controller::recoverRegister(){
     if (registerDAO->getLastDeleted() != NULL) {
+        cout << "Recuperando último registro deletado..." << endl;
+        utils::sleepFunc(1);
+
         try{
 
             registerDAO->recoverRegister();
@@ -306,7 +310,7 @@ void controller::recoverRegister(){
         }
         catch(const exception &myError){
 
-            cout << "Erro inesperado ao recuperar o último registro deletado. " << endl; 
+            cout << "Erro inesperado ao recuperar registro. " << myError.what() << endl; 
         
         }
 
