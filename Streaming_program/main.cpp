@@ -1,4 +1,6 @@
-// para compilar: g++ controller.cpp creditsAndHelp.cpp menu.cpp memoryDBConnection.cpp register.cpp registerMemDAO.cpp utils.cpp main.cpp -o main.exe
+// para compilar: 
+// g++ controller.cpp creditsAndHelp.cpp menu.cpp memoryDBConnection.cpp register.cpp registerMemDAO.cpp 
+// serverDBConnection.cpp registerServerDAO.cpp utils.cpp main.cpp -o main.exe -lmariadbcpp
 
 #include "controller.h"
 #include<memory>
