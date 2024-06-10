@@ -8,10 +8,26 @@
 
 using namespace std;
 
-controller::controller(){
+controller::controller(DatabaseType dataBaseType){
     memoryDBConnection = NULL;
+    serverDBConnection = NULL;
 
-    registerDAO = new registerMemDAO(new MemoryDBConnection());
+    switch(dataBaseType){
+        case DatabaseType::MEMORY:
+            {
+            registerDAO = new registerMemDAO(new MemoryDBConnection());
+            }
+
+            break;
+
+        case DatabaseType::MARIADB:
+            {
+            registerDAO = new registerServerDAO(new ServerDBConnection());
+            }
+
+            break;
+    
+    }
 
     registerDAO->addRegister(new Register("The Flash", 2014, 9, 184, "Grant Gustin, Danielle Panabaker, Stephen Amell", "Barry Allen, Iris West, Wally West, Vibro, Caitlin Snow", "Netflix", 7.5));
     registerDAO->addRegister(new Register("The Office", 2005, 9, 201, "Steve Carell, John Krasinski, Jenna Fischer", "Michael Scott, Dwigth Schrute, Pamela Weesly, Jim Halpert", "Netflix", 9));
@@ -24,7 +40,9 @@ controller::~controller(){
     delete registerDAO;
     registerDAO = NULL;
     delete memoryDBConnection;
-    memoryDBConnection = NULL;  
+    memoryDBConnection = NULL;
+    delete serverDBConnection;
+    serverDBConnection = NULL;
 };
 
 void controller::start(){
@@ -325,7 +343,7 @@ void controller::recoverRegister(){
 }
 
 void controller::OrderByName(){
-    vector<Register*> &registersList = registerDAO->getAllRegisters();
+    vector<Register*> registersList = registerDAO->getAllRegisters();
 
     if (!registersList.empty()){
 
@@ -342,7 +360,7 @@ void controller::OrderByName(){
 }
 
 void controller::OrderByReleaseYear(){
-    vector<Register*> &registersList = registerDAO->getAllRegisters();
+    vector<Register*> registersList = registerDAO->getAllRegisters();
 
     if (!registersList.empty()){ 
     
@@ -368,7 +386,7 @@ void controller::OrderByReleaseYear(){
 }
 
 void controller::OrderByStreaming(){
-    vector<Register*> &registersList = registerDAO->getAllRegisters();
+    vector<Register*> registersList = registerDAO->getAllRegisters();
 
     if (!registersList.empty()){
 
@@ -385,7 +403,7 @@ void controller::OrderByStreaming(){
 }
 
 void controller::OrderByScore(){
-    vector<Register*> &registersList = registerDAO->getAllRegisters();
+    vector<Register*> registersList = registerDAO->getAllRegisters();
     if(!registersList.empty()){
 
         int i, j;

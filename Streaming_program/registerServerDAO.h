@@ -1,18 +1,22 @@
-#ifndef REGISTERMEMDAO_H_
-#define REGISTERMEMDAO_H_
-
-#include "memoryDBConnection.h"
+#include "serverDBConnection.h"
+#include "register.h"
 #include "AbstractRegisterDAO.h"
 
-using namespace std;
-
-class registerMemDAO final: public AbstractRegisterDAO{
+class registerServerDAO final : public AbstractRegisterDAO{
     private:
-        MemoryDBConnection* memoryDBConnection;
+		static const string SQL_getAllRegisters;
+		static const string SQL_getRegisterById;
+		static const string SQL_addRegister;
+		static const string SQL_editRegister;
+		static const string SQL_deleteRegister;
+
+		ServerDBConnection *serverDBConnection;
+
         Register* lastDeleted = NULL;
+
     public:
-        registerMemDAO(MemoryDBConnection* memoryDBConnection);
-        virtual ~registerMemDAO();
+        registerServerDAO(ServerDBConnection *serverDBConnection);
+        ~registerServerDAO();
 
         virtual vector<Register*> getAllRegisters();
         virtual Register* getRegisterById(int registerId);
@@ -23,5 +27,3 @@ class registerMemDAO final: public AbstractRegisterDAO{
         virtual void recoverRegister();
         virtual Register* getLastDeleted();
 };
-
-#endif

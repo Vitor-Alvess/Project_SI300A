@@ -5,7 +5,7 @@ registerMemDAO::registerMemDAO(MemoryDBConnection *memoryDBConnection):
 
 registerMemDAO::~registerMemDAO(){}
 
-vector<Register*>& registerMemDAO::getAllRegisters(){
+vector<Register*> registerMemDAO::getAllRegisters(){
     return (memoryDBConnection->getRegisterList());
 }
 

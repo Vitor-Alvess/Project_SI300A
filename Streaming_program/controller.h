@@ -1,20 +1,24 @@
 #ifndef CONTROLLER_H_
 #define CONTROLLER_H_
 
+#include "serverDBConnection.h"
+#include "registerServerDAO.h"
 
 #include "creditsAndHelp.h"
 #include "menu.h"
 #include "register.h"
 #include "registerMemDAO.h"
 #include "memoryDBConnection.h"
+#include "databaseType.h"
+#include "AbstractRegisterDAO.h"
 
 using namespace std;
 
 class controller{
     private:
         MemoryDBConnection *memoryDBConnection;
-        registerMemDAO *registerDAO;
-        Register *lastRegisterDeleted;
+        ServerDBConnection *serverDBConnection;
+        AbstractRegisterDAO *registerDAO;
 
         void actionHelp();
         void actionCredits();
@@ -34,7 +38,7 @@ class controller{
         void printRegistersList();
 
     public:
-        controller();
+        controller(DatabaseType dataBaseType);
         virtual ~controller();
         void start();
 };

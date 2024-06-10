@@ -1,5 +1,10 @@
 #include "creditsAndHelp.h"
 
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <string>
+
 creditsAndHelp::creditsAndHelp(string message, string title){
     this->end_msg = end_msg;
     this->title = title;
@@ -22,9 +27,33 @@ void creditsAndHelp::printMessage(string message){
 };
 
 void creditsAndHelp::setMessage(string message){
-    this->message = message;
+    if (title == "CRÉDITOS"){
+        this->message = message;
+    }
+    else
+        readTextFromFile();
 }
 
 creditsAndHelp::~creditsAndHelp(){
    utils::pause();
+}
+
+void creditsAndHelp::readTextFromFile(){
+    string fileContent = "";
+    try{
+        ifstream inputFile("helpText.txt");
+        stringstream buffer;
+
+        if (!inputFile.is_open()){
+			throw runtime_error("Falha ao abrir o arquivo de ajuda: helpText.txt");
+		}
+
+            buffer << inputFile.rdbuf();
+            inputFile.close();
+            fileContent = buffer.str();
+            cout << fileContent << endl;
+    }
+    catch(const exception &myError){
+        cout << "Erro inesperado: " << myError.what() << endl;
+    }
 }

@@ -1,7 +1,7 @@
 // para compilar: g++ controller.cpp creditsAndHelp.cpp menu.cpp memoryDBConnection.cpp register.cpp registerMemDAO.cpp utils.cpp main.cpp -o main.exe
 
 #include "controller.h"
-
+#include<memory>
 
 using namespace std;
 
@@ -11,7 +11,7 @@ int main(){
 
     try{
 
-        make_unique<controller>() -> start();
+        (make_unique<controller>(DatabaseType::MEMORY)) -> start();
 
     }   
     catch (const exception &myError){

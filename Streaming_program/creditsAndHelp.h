@@ -13,6 +13,8 @@ class creditsAndHelp{
         string message;
         string end_msg;
         void setMessage(string message);
+        void readTextFromFile();
+        
     public:
         creditsAndHelp(string message, string title);
         string getMessage();

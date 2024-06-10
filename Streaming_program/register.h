@@ -13,12 +13,13 @@ class Register{
         int NumOfSeasons;
         int episodesTotal;
         string mainCharacters;
-    public:
         string name;
         int releaseYear;
         string mainPlot;
         string streaming;
         float score;
+        
+    public:
 
         Register(int id, string name, int releaseYear, int NumOfSeasons, int episodesTotal,
                 string mainPlot, string mainCharacters, string streaming, float score);

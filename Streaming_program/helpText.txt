@@ -1,0 +1,37 @@
+/* ********************************************************************************
+ * Laura Gouveia Nunes
+ * Matheus Cirillo
+ * Marcos Vinicius Balestero
+ * Ori Kao Minohara
+ * Vitor Alves
+ * Faculdade de Tecnologia
+ * Universidade de Campinas (Unicamp)
+ * Primeiro Semestre - 2024
+ * ********************************************************************************
+ * Esse projeto é uma versão simplificada de um catálogo de séries e foi parte de um
+ * Trabalho estudantil em C++ para estudantes de Análise e Desenvolvimento de Sistemas   
+ * da matéria de Programação Orientada a Objeto I da Universidade de Campinas. 
+ * ********************************************************************************
+ * Copyright (C) 2024 Vitor A. De Souza
+ * ********************************************************************************
+ * SeriesCatalogueHelp.txt
+ * ********************************************************************************
+ */
+
+
+Bem-vindo ao Programa de Catálogo de Séries!
+Este software foi projetado para ajudá-lo a gerenciar suas séries de forma eficaz. Abaixo, você encontrará um guia para ajudá-lo a navegar por seus recursos:
+1. Gerenciamento de Séries:
+   * Criação de Séries: Insira novas séries, incluindo nome, ano, plataforma de streaming, avaliação e muito mais.
+   * Edição de Séries: Atualize os detalhes de uma série existente, como número de temporadas, elenco principal, plataforma, avaliação e outros dados que possam ser relevantes.
+   * Exclusão de Séries: Remova séries do catálogo quando não forem mais necessárias.
+2. Listagem de Séries:
+   * Visualização Completa: Obtenha uma lista completa das séries armazenadas no programa.
+   * Ordenação: Organize suas séries por nome, ano, streaming, etc.
+3. Dicas Rápidas:
+   * Use o menu de navegação para acessar diferentes seções do software.
+4. Ajuda e Suporte:
+   * Para qualquer assistência ou dúvidas, consulte o manual do usuário ou entre em contato com nossa equipe de suporte.
+5. Saindo do Software:
+   * Saia do software com segurança selecionando a opção apropriada no menu.
+Obrigado por usar o Programa de Catálogo de Séries! Sinta-se à vontade para explorar seus recursos e otimizar seu processo de gerenciamento de séries.
