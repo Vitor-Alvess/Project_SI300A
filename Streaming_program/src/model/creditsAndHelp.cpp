@@ -1,4 +1,4 @@
-#include "creditsAndHelp.h"
+#include "../../include/model/creditsAndHelp.h"
 
 #include <fstream>
 #include <sstream>
@@ -35,7 +35,7 @@ void creditsAndHelp::setMessage(string message){
 }
 
 creditsAndHelp::~creditsAndHelp(){
-   utils::pause();
+   Utils::pause();
 }
 
 void creditsAndHelp::readTextFromFile(){

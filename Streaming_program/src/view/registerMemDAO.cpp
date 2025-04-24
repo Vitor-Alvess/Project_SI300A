@@ -1,4 +1,4 @@
-#include "registerMemDAO.h"
+#include "../../include/view/registerMemDAO.h"
 
 registerMemDAO::registerMemDAO(MemoryDBConnection *memoryDBConnection):
         memoryDBConnection(memoryDBConnection){}

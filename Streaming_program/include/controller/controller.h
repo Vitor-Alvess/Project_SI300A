@@ -1,20 +1,22 @@
 #ifndef CONTROLLER_H_
 #define CONTROLLER_H_
 
-#include "serverDBConnection.h"
-#include "registerServerDAO.h"
+#include "../config/serverDBConnection.h"
+#include "../config/utils.h"
 
-#include "creditsAndHelp.h"
-#include "menu.h"
-#include "register.h"
-#include "registerMemDAO.h"
-#include "memoryDBConnection.h"
-#include "databaseType.h"
-#include "AbstractRegisterDAO.h"
+#include "../view/registerServerDAO.h"
+
+#include "../model/creditsAndHelp.h"
+#include "../model/menu.h"
+#include "../model/register.h"
+#include "../view/registerMemDAO.h"
+#include "../config/memoryDBConnection.h"
+#include "../config/databaseType.h"
+#include "../view/abstractRegisterDAO.h"
 
 using namespace std;
 
-class controller{
+class Controller{
     private:
         MemoryDBConnection *memoryDBConnection;
         ServerDBConnection *serverDBConnection;
@@ -24,7 +26,7 @@ class controller{
         void actionCredits();
         void actionRegisters();
         void actionReports();
-        void launchActions(string title, vector<string> menuOptions, vector<void (controller::*)()> functions);
+        void launchActions(string title, vector<string> menuOptions, vector<void (Controller::*)()> functions);
 
         void addRegister();
         void editRegister();
@@ -38,8 +40,8 @@ class controller{
         void printRegistersList();
 
     public:
-        controller(DatabaseType dataBaseType);
-        virtual ~controller();
+        Controller(DatabaseType dataBaseType);
+        virtual ~Controller();
         void start();
 };
 

@@ -3,7 +3,7 @@
 
 #include<iostream>
 
-#include "utils.h"
+#include "../config/utils.h"
 
 using namespace std;
 

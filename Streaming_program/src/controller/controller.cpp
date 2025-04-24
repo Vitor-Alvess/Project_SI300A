@@ -1,5 +1,4 @@
-#include "controller.h"
-#include "utils.h"
+#include "../../include/controller/controller.h"
 
 #include <iostream>
 #include <string>
@@ -8,7 +7,7 @@
 
 using namespace std;
 
-controller::controller(DatabaseType dataBaseType){
+Controller::Controller(DatabaseType dataBaseType){
     memoryDBConnection = NULL;
     serverDBConnection = NULL;
 
@@ -36,7 +35,7 @@ controller::controller(DatabaseType dataBaseType){
     registerDAO->addRegister(new Register("The Boys", 2019, 4, 32, "Antony Starr, Karl Urban, Jack Quaid", "Billy Butcher, Homelander, Soldier Boy, Erin Moriarty", "Prime Video", 8.7));
 };
 
-controller::~controller(){
+Controller::~Controller(){
     delete registerDAO;
     registerDAO = NULL;
     delete memoryDBConnection;
@@ -45,32 +44,32 @@ controller::~controller(){
     serverDBConnection = NULL;
 };
 
-void controller::start(){
+void Controller::start(){
     vector<string> MainMenu_Options
         {"Registros", "Ajuda", "Créditos ", "Sair"};
-    vector<void (controller::*)()> functions
-        {&controller::actionRegisters, &controller::actionHelp, &controller::actionCredits};
+    vector<void (Controller::*)()> functions
+        {&Controller::actionRegisters, &Controller::actionHelp, &Controller::actionCredits};
     launchActions("MENU PRINCIPAL", MainMenu_Options, functions);
 }
 
-void controller::actionRegisters(){
+void Controller::actionRegisters(){
     vector<string> registers_Options
         {"Relatórios", "Adicionar registro", "Editar registro", "Deletar registro", "Recuperar registro", "Voltar"};
-    vector<void (controller::*)()> functions
-        {&controller::actionReports, &controller::addRegister, &controller::editRegister, &controller::deleteRegister, &controller::recoverRegister};
+    vector<void (Controller::*)()> functions
+        {&Controller::actionReports, &Controller::addRegister, &Controller::editRegister, &Controller::deleteRegister, &Controller::recoverRegister};
     launchActions("REGISTROS", registers_Options, functions); 
 }
 
-void controller::actionHelp(){
-    utils::clear();
+void Controller::actionHelp(){
+    Utils::clear();
     string helpMessage = "texto de ajuda\n";
     creditsAndHelp *help = new creditsAndHelp(helpMessage, "AJUDA");
     help->printMessage(help->getMessage());
-    utils::clear();
+    Utils::clear();
 }
 
-void controller::actionCredits(){
-    utils::clear();
+void Controller::actionCredits(){
+    Utils::clear();
     string creditsMessage = "Desenvolvido em 2024 por:\n"
                         "- Laura Gouveia Nunes\n"
                         "- Matheus Cirillo\n"
@@ -79,25 +78,25 @@ void controller::actionCredits(){
                         "- Vitor Alves\n";
     creditsAndHelp *credits = new creditsAndHelp(creditsMessage, "CRÉDITOS");
     credits->printMessage(credits->getMessage());
-    utils::clear();
+    Utils::clear();
 }
 
-void controller::actionReports(){
+void Controller::actionReports(){
     vector<string> reports_Options
         {"Ordenar por nome", "Ordenar por ano", "Ordenar por serviço de streaming", "Ordenar por nota", "Voltar"};
-    vector<void (controller::*)()> functions
-        {&controller::OrderByName, &controller::OrderByReleaseYear, &controller::OrderByStreaming, &controller::OrderByScore};
+    vector<void (Controller::*)()> functions
+        {&Controller::OrderByName, &Controller::OrderByReleaseYear, &Controller::OrderByStreaming, &Controller::OrderByScore};
     launchActions("RELATÓRIOS", reports_Options, functions);
 }
 
-void controller::launchActions(string title, vector<string> options, vector<void (controller::*)()> functions){
+void Controller::launchActions(string title, vector<string> options, vector<void (Controller::*)()> functions){
     try{
-        utils::clear();
+        Utils::clear();
         Menu menu(options, title);
         while(int choice = menu.getOption()){
             if (choice == functions.size()+1){    
                 if (menu.getTitle() == "REGISTROS") 
-                    utils::clear();
+                    Utils::clear();
                 return;
             }   
 
@@ -109,7 +108,7 @@ void controller::launchActions(string title, vector<string> options, vector<void
     }
 }
 
-void controller::addRegister(){
+void Controller::addRegister(){
     string registerName;
     string registerMainCharacters;
     string registerMainPlot;
@@ -186,7 +185,7 @@ void controller::addRegister(){
     }
 }
 
-void controller::editRegister(){
+void Controller::editRegister(){
     int registerId = 0;
     cout << "Editar registro" << endl;
 
@@ -266,7 +265,7 @@ void controller::editRegister(){
     }
 }
 
-void controller::deleteRegister(){
+void Controller::deleteRegister(){
     int registerId = 0;
     cout << "Deletar registro" << endl;
     cout << "Id do registro: " << endl;
@@ -315,10 +314,10 @@ void controller::deleteRegister(){
     }
 }
 
-void controller::recoverRegister(){
+void Controller::recoverRegister(){
     if (registerDAO->getLastDeleted() != NULL) {
         cout << "Recuperando último registro deletado..." << endl;
-        utils::sleepFunc(1);
+        Utils::sleepFunc(1);
 
         try{
 
@@ -342,7 +341,7 @@ void controller::recoverRegister(){
 
 }
 
-void controller::OrderByName(){
+void Controller::OrderByName(){
     vector<Register*> registersList = registerDAO->getAllRegisters();
 
     if (!registersList.empty()){
@@ -352,14 +351,14 @@ void controller::OrderByName(){
                                                             }
                                                         ); 
 
-            utils::printList(registersList);
+            Utils::printList(registersList);
 
     }
     else
         cout << "Não existem registros para serem listados." << endl;
 }
 
-void controller::OrderByReleaseYear(){
+void Controller::OrderByReleaseYear(){
     vector<Register*> registersList = registerDAO->getAllRegisters();
 
     if (!registersList.empty()){ 
@@ -371,21 +370,21 @@ void controller::OrderByReleaseYear(){
             for(i = 0; i < j; i++){
 
                 if ((registersList.at(i)->getRegisterReleaseYear()) > registersList.at(i+1)->getRegisterReleaseYear()){
-                    utils::functionToSwap(i, registersList);
+                    Utils::functionToSwap(i, registersList);
                 }
 
             }
 
         }
 
-        utils::printList(registersList);
+        Utils::printList(registersList);
 
     }
     else
         cout << "Não existem registros para serem listados." << endl;
 }
 
-void controller::OrderByStreaming(){
+void Controller::OrderByStreaming(){
     vector<Register*> registersList = registerDAO->getAllRegisters();
 
     if (!registersList.empty()){
@@ -395,14 +394,14 @@ void controller::OrderByStreaming(){
                                                             }
                                                         );
         
-        utils::printList(registersList);
+        Utils::printList(registersList);
 
     }
     else
         cout << "Não existem registros para serem listados." << endl;    
 }
 
-void controller::OrderByScore(){
+void Controller::OrderByScore(){
     vector<Register*> registersList = registerDAO->getAllRegisters();
     if(!registersList.empty()){
 
@@ -413,13 +412,13 @@ void controller::OrderByScore(){
             for(i = 0; i < j; i++){
                 
                 if ((registersList.at(i)->getRegisterScore()) < registersList.at(i+1)->getRegisterScore()){
-                    utils::functionToSwap(i, registersList);
+                    Utils::functionToSwap(i, registersList);
                 }
             }
 
         }
         
-        utils::printList(registersList);
+        Utils::printList(registersList);
 
     }
     else

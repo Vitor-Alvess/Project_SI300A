@@ -1,4 +1,4 @@
-#include "register.h"
+#include "../../include/model/register.h"
 
 int Register::lastId = 0;
 
@@ -13,6 +13,7 @@ Register::Register(string name, int releaseYear, int NumOfSeasons, int episodesT
                 mainCharacters(mainCharacters), streaming(streaming), score(score){
                     this->id = ++lastId;
                 }
+                
 Register::Register(Register *r){
     setRegisterName(r->getRegisterName());
     setRegisterReleaseYear(r->getRegisterReleaseYear());

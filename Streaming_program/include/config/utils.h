@@ -8,7 +8,7 @@
 #include<unistd.h>
 
 
-#include "register.h"
+#include "../model/register.h"
 
 #ifdef WIN32
 #define IS_WINDOWS 1
@@ -24,7 +24,7 @@ using namespace std;
 
 #define SYMBOL "*"
 
-class utils{
+class Utils{
     public:
         static void functionToSwap(int i, vector<Register*> &list);
         static void listHeader();

@@ -1,6 +1,6 @@
-#include "utils.h"
+#include "../../include/config/utils.h"
 
-void utils::functionToSwap(int i, vector<Register*> &list){
+void Utils::functionToSwap(int i, vector<Register*> &list){
     string auxStr;
     int auxInt;
     float auxFloat;
@@ -42,7 +42,7 @@ void utils::functionToSwap(int i, vector<Register*> &list){
     list.at(i+1)->setRegisterScore(auxFloat);
 }
 
-void utils::listHeader(){
+void Utils::listHeader(){
     cout << left << setfill(' ') << setw(6) << "ID" << " | ";
     cout << left << setfill(' ') << setw(20) << "NOME" << " | ";
     cout << left << setfill(' ') << setw(4) << "ANO" << " | ";
@@ -55,7 +55,7 @@ void utils::listHeader(){
     
 }
 
-void utils::printList(vector<Register*> &list){
+void Utils::printList(vector<Register*> &list){
     cout << endl;
     listHeader();
     for (Register *buffer : list){
@@ -71,26 +71,26 @@ void utils::printList(vector<Register*> &list){
     }
 }
 
-void utils::sleepFunc(unsigned int seconds){
+void Utils::sleepFunc(unsigned int seconds){
     (IS_WINDOWS) ? sleep(seconds) : usleep(seconds*1000000);
 }
 
-void utils::bye(){
+void Utils::bye(){
     cout << "Encerrando..." << endl;
 }
 
-void utils::init(){
+void Utils::init(){
     cout << "Iniciando..." << endl;
 }
 
-void utils::clear(){
+void Utils::clear(){
     if (IS_WINDOWS)
         system("cls");
     else
         system("clear");
 }
 
-void utils::pause(){
+void Utils::pause(){
     if (IS_WINDOWS) {
         system("pause");
     } else {

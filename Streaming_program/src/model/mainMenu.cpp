@@ -1,4 +1,4 @@
-#include "mainMenu.h"
+#include "../../include/model/mainMenu.h"
 
 mainMenu::mainMenu( vector<string> &options, string title, string choice_msg):
         Menu(options, title, choice_msg){

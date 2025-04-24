@@ -1,4 +1,4 @@
-#include "credits.h"
+#include "../../include/model/credits.h"
 
 credits::credits(vector<string> &options, string title, string choice_msg):
         Menu(options, title, choice_msg){

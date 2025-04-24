@@ -1,4 +1,4 @@
-#include "memoryDBConnection.h"
+#include "../../include/config/memoryDBConnection.h"
 
 using namespace std;
 

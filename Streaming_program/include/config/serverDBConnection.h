@@ -12,10 +12,10 @@ using namespace std;
 class ServerDBConnection{
     private:
         string serverPort = "3306";
-		string serverIP = "143.106.243.64";
+		string serverIP = "localhost";
 		string serverDatabase = "Si300A2024_07";
-		string serverUser = "Si300A2024_07";
-		string serverPassword = "56SaOaoAjM";
+		string serverUser = "root";
+		string serverPassword = "MySqlPass2";
 
         sql::Driver *driver = NULL;
         sql::Connection *connection = NULL;
