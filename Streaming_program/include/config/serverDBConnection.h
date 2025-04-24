@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ class ServerDBConnection{
         ServerDBConnection();
         virtual ~ServerDBConnection();
         sql::Connection* getConnection() const;
-
+        void loadEnv(const string path);
 };
 
 #endif
