@@ -1,3 +1,0 @@
-/home/vitor-alves/git/Project_SI300A/Streaming_program/build/CMakeFiles/main.dir
-/home/vitor-alves/git/Project_SI300A/Streaming_program/build/CMakeFiles/edit_cache.dir
-/home/vitor-alves/git/Project_SI300A/Streaming_program/build/CMakeFiles/rebuild_cache.dir
