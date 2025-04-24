@@ -174,7 +174,6 @@ void Controller::addRegister(){
 
     else{
         try{
-
             registerDAO->addRegister(new Register(registerName, registerReleaseYear, registerNumOfSeasons, registerEpisodesTotal, 
                                     registerMainPlot, registerMainCharacters, registerStreaming, registerScore));
             cout << "Registro adicionado com sucesso!" << endl;

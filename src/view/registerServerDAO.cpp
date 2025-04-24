@@ -6,13 +6,17 @@
 
 using namespace std;
 
-const string registerServerDAO::SQL_getAllRegisters = "SELECT * FROM REGISTROS";
-const string registerServerDAO::SQL_getRegisterById = "SELECT * FROM REGISTROS WHERE id = ?";
-const string registerServerDAO::SQL_addRegister = "INSERT INTO REGISTROS (Nome, Ano de lançamento, Temporadas, Episódios, Elenco principal, Personagens principais, Serviço de streaming, Nota) "
-                                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-const string registerServerDAO::SQL_deleteRegister = "DELETE FROM REGISTROS WHERE id = ?";
-const string registerServerDAO::SQL_editRegister = "UPDATE REGISTROS SET Nome = ?, Ano de lançamento = ?, Temporadas = ?, Episódios = ?, Elenco principal = ?, Personagens principais = ?, Serviço de streaming = ?, Nota = ? "
-                                                "WHERE id = ?";
+const string registerServerDAO::SQL_getAllRegisters = "SELECT * FROM registros";
+
+const string registerServerDAO::SQL_getRegisterById = "SELECT * FROM registros WHERE id = ?";
+
+const string registerServerDAO::SQL_addRegister = "INSERT INTO registros (nome, ano_de_lancamento,temporadas, episodios, elenco_principal, personagens_principais, servico_de_streaming, nota) "
+                                                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+const string registerServerDAO::SQL_deleteRegister = "DELETE FROM registros WHERE id = ?";
+
+const string registerServerDAO::SQL_editRegister = "UPDATE registros SET nome = ?, ano_de_lancamento = ?,temporadas = ?, episodios = ?, elenco_principal = ?, personagens_principais = ?, servico_de_streaming = ?, nota = ? "
+                                                     "WHERE id = ?";
 
 registerServerDAO::registerServerDAO(ServerDBConnection* serverDBConnection):
     serverDBConnection(serverDBConnection){};
@@ -82,15 +86,15 @@ Register* registerServerDAO::getRegisterById(int registerId){
 void registerServerDAO::addRegister(Register *Register){
     try{
         unique_ptr<sql::PreparedStatement> stmnt(serverDBConnection->getConnection()->prepareStatement(SQL_addRegister));
-        stmnt->setInt(1, Register->getRegisterId());
-        stmnt->setString(2, Register->getRegisterName());
-        stmnt->setInt(3, Register->getRegisterReleaseYear());
-        stmnt->setInt(4, Register->getRegisterNumOfSeasons());
-        stmnt->setInt(5, Register->getRegisterEpisodesTotal());
-        stmnt->setString(6, Register->getRegisterMainPlot());
-        stmnt->setString(7, Register->getRegisterMainCharacters());
-        stmnt->setString(8, Register->getRegisterStreaming());
-        stmnt->setFloat(9, Register->getRegisterScore());
+        stmnt->setString(1, Register->getRegisterName());
+        stmnt->setInt(2, Register->getRegisterReleaseYear());
+        stmnt->setInt(3, Register->getRegisterNumOfSeasons());
+        stmnt->setInt(4, Register->getRegisterEpisodesTotal());
+        stmnt->setString(5, Register->getRegisterMainPlot());
+        stmnt->setString(6, Register->getRegisterMainCharacters());
+        stmnt->setString(7, Register->getRegisterStreaming());
+        stmnt->setFloat(8, Register->getRegisterScore());
+        stmnt->executeQuery();
     }
     catch(const sql::SQLException &myError){
         cerr << "Erro ao adicionar um registro no MariaDB: " << myError.what() << endl;

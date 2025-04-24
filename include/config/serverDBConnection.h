@@ -1,3 +1,5 @@
+#include "utils.h"
+
 #include <mariadb/conncpp.hpp>
 
 #ifndef SERVERDBCONNECTION_H_
@@ -26,6 +28,7 @@ class ServerDBConnection{
         virtual ~ServerDBConnection();
         sql::Connection* getConnection() const;
         void loadEnv(const string path);
+        void migrations(sql::Connection *conn);
 };
 
 #endif
