@@ -5,16 +5,14 @@
 
 #include "../model/register.h"
 
-using namespace std;
-
 class MemoryDBConnection{
     private:
-        vector<Register*> registersDB;
+        std::vector<Register*> registersDB;
     public:
         MemoryDBConnection();
         virtual ~MemoryDBConnection();
 
-        vector<Register*>& getRegisterList();
+        std::vector<Register*>& getRegisterList();
         void close();
 };
 

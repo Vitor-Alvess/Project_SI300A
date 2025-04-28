@@ -1,7 +1,8 @@
 #include "../../include/view/registerMemDAO.h"
 
-registerMemDAO::registerMemDAO(MemoryDBConnection *memoryDBConnection):
-        memoryDBConnection(memoryDBConnection){}
+using namespace std;
+
+registerMemDAO::registerMemDAO(MemoryDBConnection *memoryDBConnection): memoryDBConnection(memoryDBConnection){}
 
 registerMemDAO::~registerMemDAO(){}
 
@@ -41,6 +42,7 @@ void registerMemDAO::deleteRegister(int registerID){
 
         if ((*registerIterator)->getRegisterId() == registerID){
             lastDeleted = new Register(*registerIterator);
+            lastDeleted->setRegisterId(registerID);
 
             found = true;
 
@@ -72,4 +74,8 @@ void registerMemDAO::recoverRegister(){
 
 Register* registerMemDAO::getLastDeleted(){
     return lastDeleted;
+}
+
+DatabaseType registerMemDAO::getDatabaseType(){
+    return DatabaseType::MEMORY;
 }

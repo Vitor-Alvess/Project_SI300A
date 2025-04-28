@@ -142,3 +142,7 @@ Register* registerServerDAO::getLastDeleted(){
     return lastDeleted;
 }
 
+DatabaseType registerServerDAO::getDatabaseType(){
+    return DatabaseType::MARIADB;
+}
+

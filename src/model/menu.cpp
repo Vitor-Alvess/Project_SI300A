@@ -3,11 +3,12 @@
 
 using namespace std;
 
-Menu::Menu(vector<string> &options, string title, string choice_msg):
-        options(options), title(title), choice_msg(choice_msg){
+Menu::Menu(vector<string> &options, string title, bool isRegisterMenu, string choiceMsg):
+        options(options), title(title), isRegisterMenu(isRegisterMenu), choiceMsg(choiceMsg){
             this->setWidth(WIDTH);
             this->setSymbol(SYMBOL);
-            this->setWelcomeMessage("SISTEMA DE CATÁLOGO DE SÉRIES\nBem Vindo!");
+            welcomeMessage = "SISTEMA DE CATÁLOGO DE SÉRIES!\nBem vindo!";
+            this->isRegisterMenu = isRegisterMenu;
         }
 
 const string &Menu::getTitle() const{
@@ -32,7 +33,7 @@ const int Menu::getOption(){
             cout << decorator << endl;
             firstTry = false;
         }
-        cout << choice_msg << endl;
+        cout << choiceMsg << endl;
         cin >> selected_option;
     }while(isNotValidOption(selected_option));
     cin.ignore();
@@ -61,14 +62,12 @@ void Menu::setSymbol(const string &symbol){
 }
 
 string Menu::getWelcomeMessage(){
-    return WelcomeMessage;
+    return welcomeMessage;
 }
 
 void Menu::printWelcome(){
-        cout << WelcomeMessage << endl;
+        if (title == "MENU PRINCIPAL") cout << welcomeMessage << endl;
 }
-
-Menu::~Menu(){}
 
 const bool Menu::isNotValidOption(unsigned int opt) const{
     if ((opt < 1) || (opt > options.size())){
@@ -97,6 +96,4 @@ const string Menu::makeDecorator(){
     return buffer;
 }
 
-void Menu::setWelcomeMessage(string WelcomeMessage){
-    (this->title == "MENU PRINCIPAL") ? this->WelcomeMessage = WelcomeMessage : "";
-}
+Menu::~Menu(){}

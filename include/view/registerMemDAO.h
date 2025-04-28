@@ -4,8 +4,6 @@
 #include "../config/memoryDBConnection.h"
 #include "abstractRegisterDAO.h"
 
-using namespace std;
-
 class registerMemDAO final: public AbstractRegisterDAO{
     private:
         MemoryDBConnection* memoryDBConnection;
@@ -14,14 +12,15 @@ class registerMemDAO final: public AbstractRegisterDAO{
         registerMemDAO(MemoryDBConnection* memoryDBConnection);
         virtual ~registerMemDAO();
 
-        virtual vector<Register*> getAllRegisters();
+        virtual std::vector<Register*> getAllRegisters();
         virtual Register* getRegisterById(int registerId);
         virtual void addRegister(Register *Register);
         virtual void deleteRegister(int registerID);
-        virtual void editRegister(Register *oldRegister, string RegisterName, int releaseYear, int NumOfSeasons, int EpisodesTotal,
-                                string mainPlot, string mainCharacters, string streaming, float score);
+        virtual void editRegister(Register *oldRegister, std::string RegisterName, int releaseYear, int NumOfSeasons, int EpisodesTotal,
+                                std::string mainPlot, std::string mainCharacters, std::string streaming, float score);
         virtual void recoverRegister();
         virtual Register* getLastDeleted();
+        virtual DatabaseType getDatabaseType();
 };
 
 #endif

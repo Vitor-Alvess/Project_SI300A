@@ -57,7 +57,12 @@ void Controller::actionRegisters(){
         {"Relatórios", "Adicionar registro", "Editar registro", "Deletar registro", "Recuperar registro", "Voltar"};
     vector<void (Controller::*)()> functions
         {&Controller::actionReports, &Controller::addRegister, &Controller::editRegister, &Controller::deleteRegister, &Controller::recoverRegister};
-    launchActions("REGISTROS", registers_Options, functions); 
+
+    DatabaseType databaseType = registerDAO->getDatabaseType();
+    string databaseTypeString = (databaseType == DatabaseType::MEMORY) ? "MEMÓRIA" : "MARIADB";
+
+    string titleWithDatabaseType = string("REGISTROS [").append(databaseTypeString).append("]"); 
+    launchActions(titleWithDatabaseType, registers_Options, functions, true); 
 }
 
 void Controller::actionHelp(){
@@ -86,16 +91,20 @@ void Controller::actionReports(){
         {"Ordenar por nome", "Ordenar por ano", "Ordenar por serviço de streaming", "Ordenar por nota", "Voltar"};
     vector<void (Controller::*)()> functions
         {&Controller::OrderByName, &Controller::OrderByReleaseYear, &Controller::OrderByStreaming, &Controller::OrderByScore};
-    launchActions("RELATÓRIOS", reports_Options, functions);
+    launchActions("RELATÓRIOS", reports_Options, functions, true);
 }
 
 void Controller::launchActions(string title, vector<string> options, vector<void (Controller::*)()> functions){
+    launchActions(title, options, functions, false);
+}
+
+void Controller::launchActions(string title, vector<string> options, vector<void (Controller::*)()> functions, bool isRegisterMenu){
     try{
         Utils::clear();
-        Menu menu(options, title);
+        Menu menu(options, title, isRegisterMenu);
         while(int choice = menu.getOption()){
             if (choice == functions.size()+1){    
-                if (menu.getTitle() == "REGISTROS") 
+                if (menu.isRegisterMenu) 
                     Utils::clear();
                 return;
             }   
@@ -175,11 +184,12 @@ void Controller::addRegister(){
     else{
         try{
             registerDAO->addRegister(new Register(registerName, registerReleaseYear, registerNumOfSeasons, registerEpisodesTotal, 
-                                    registerMainPlot, registerMainCharacters, registerStreaming, registerScore));
-            cout << "Registro adicionado com sucesso!" << endl;
+                registerMainPlot, registerMainCharacters, registerStreaming, registerScore));
+
+            Utils::printStatus("Registro adicionado com sucesso!");
 
         } catch(const exception &myError){
-            cout << "Erro inesperado ao adicionar registro. " << myError.what() << endl;
+            Utils::printStatus("Erro inesperado ao adicionar registro. " + string(myError.what()));
         }
     }
 }
@@ -248,19 +258,19 @@ void Controller::editRegister(){
             registerDAO->editRegister(oldRegister, registerName, registerReleaseYear, registerNumOfSeasons, registerEpisodesTotal,
                                     registerMainPlot, registerMainCharacters, registerStreaming, registerScore);
 
-            cout << "Registro alterado com sucesso!" << endl;
+            Utils::printStatus("Registro editado com sucesso!");
         } 
         catch(const exception &myError){
-            cout << "Error inesperado ao editar um registro. " << myError.what();
+            Utils::printStatus("Erro inesperado ao editar registro. " + string(myError.what()));
         }
         
         }
         else{
-            cout << "Registro não encontrado. Operação cancelada." << endl;
+            Utils::printStatus("Registro não encontrado. Operação cancelada.");
         }
     }
     else{
-        cout << "Id inválido. Operação cancelada." << endl;
+        Utils::printStatus("Id inválido. Operação cancelada.");
     }
 }
 
@@ -272,70 +282,67 @@ void Controller::deleteRegister(){
     cin.ignore();
 
     if(registerId > 0){
-        Register *oldRegister = registerDAO->getRegisterById(registerId);
-        if (oldRegister != NULL){
+        Register *registerToBeDeleted = registerDAO->getRegisterById(registerId);
+        if (registerToBeDeleted != NULL){
             string choice;
             cout << "Dados do registro:" << endl;
-            cout << "Nome: " << oldRegister->getRegisterName() << endl;
-            cout << "Ano de lançamento: " << oldRegister->getRegisterReleaseYear() << endl;
-            cout << "Temporadas: " << oldRegister->getRegisterNumOfSeasons() << endl;
-            cout << "Episódios: " << oldRegister->getRegisterEpisodesTotal() << endl;
-            cout << "Elenco principal: " << oldRegister->getRegisterMainPlot() << endl;
-            cout << "Personagens principais: " << oldRegister->getRegisterMainCharacters() << endl;
-            cout << "Streaming: " << oldRegister->getRegisterStreaming() << endl;
-            cout << "Nota: " << oldRegister->getRegisterScore() << endl;
+            cout << "Nome: " << registerToBeDeleted->getRegisterName() << endl;
+            cout << "Ano de lançamento: " << registerToBeDeleted->getRegisterReleaseYear() << endl;
+            cout << "Temporadas: " << registerToBeDeleted->getRegisterNumOfSeasons() << endl;
+            cout << "Episódios: " << registerToBeDeleted->getRegisterEpisodesTotal() << endl;
+            cout << "Elenco principal: " << registerToBeDeleted->getRegisterMainPlot() << endl;
+            cout << "Personagens principais: " << registerToBeDeleted->getRegisterMainCharacters() << endl;
+            cout << "Streaming: " << registerToBeDeleted->getRegisterStreaming() << endl;
+            cout << "Nota: " << registerToBeDeleted->getRegisterScore() << endl;
 
             cout << "(S) para deletar o registro\n"
                     "(N) para cancelar:" << endl;
             getline(cin, choice);
 
-        try{
-            if(toupper(choice.at(0)) == 'S'){
-            
-                registerDAO->deleteRegister(registerId);
+            try{
+                switch (toupper(choice.at(0))){
+                case 'S':
+                    registerDAO->deleteRegister(registerId);
+                    Utils::printStatus("Registro deletado com sucesso!");
+                    break;
+                case 'N':
+                    Utils::printStatus("Operação cancelada.");
+                    break;
+                default:
+                    Utils::printStatus("Opção inválida. Operação cancelada.");
+                    break;
+                }
             }
-
-            cout << "Registro deletado." << endl;
-        }
-        catch(const exception &myError){
-
-            cout << "Erro inesperado ao deletar registro. " << endl;
-
-        }
-
+            catch(const exception &myError){
+                Utils::printStatus("Erro inesperado ao deletar registro. " + string(myError.what()));
+            }
         }
         else{
-            cout << "Registro não encontrado. Operação cancelada." << endl;
+            Utils::printStatus("Registro não encontrado. Operação cancelada.");
         }
     }
     else{
-        cout << "Id inválido. Operação cancelada." << endl;
+        Utils::printStatus("Id inválido. Operação cancelada.");
     }
 }
 
 void Controller::recoverRegister(){
     if (registerDAO->getLastDeleted() != NULL) {
-        cout << "Recuperando último registro deletado..." << endl;
+        Utils::printStatus("Recuperando registro...");
         Utils::sleepFunc(1);
 
         try{
-
             registerDAO->recoverRegister();
-            cout << "Registro recuperado!" << endl;
-
+            Utils::printStatus("Registro recuperado com sucesso!");
         }
         catch(const exception &myError){
-
-            cout << "Erro inesperado ao recuperar registro. " << myError.what() << endl; 
-        
+            Utils::printStatus("Erro inesperado ao recuperar registro. " + string(myError.what()));
         }
 
 
     }
     else{
-
         cout << "Não há registros para se recuperar" << endl;
-
     } 
 
 }

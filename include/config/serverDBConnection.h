@@ -10,15 +10,13 @@
 #include <string>
 #include <fstream>
 
-using namespace std;
-
 class ServerDBConnection{
     private:
-        string serverPort = "3306";
-		string serverIP = "localhost";
-		string serverDatabase = "Si300A2024_07";
-		string serverUser = "root";
-		string serverPassword = "MySqlPass2";
+        std::string serverPort = "3306";
+		std::string serverIP = "localhost";
+		std::string serverDatabase = "Si300A2024_07";
+		std::string serverUser = "root";
+		std::string serverPassword = "MySqlPass2";
 
         sql::Driver *driver = NULL;
         sql::Connection *connection = NULL;
@@ -27,7 +25,7 @@ class ServerDBConnection{
         ServerDBConnection();
         virtual ~ServerDBConnection();
         sql::Connection* getConnection() const;
-        void loadEnv(const string path);
+        void loadEnv(const std::string path);
         void migrations(sql::Connection *conn);
 };
 

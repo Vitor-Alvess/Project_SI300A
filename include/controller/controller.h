@@ -14,8 +14,6 @@
 #include "../config/databaseType.h"
 #include "../view/abstractRegisterDAO.h"
 
-using namespace std;
-
 class Controller{
     private:
         MemoryDBConnection *memoryDBConnection;
@@ -26,7 +24,8 @@ class Controller{
         void actionCredits();
         void actionRegisters();
         void actionReports();
-        void launchActions(string title, vector<string> menuOptions, vector<void (Controller::*)()> functions);
+        void launchActions(std::string title, std::vector<std::string> menuOptions, std::vector<void (Controller::*)()> functions);
+        void launchActions(std::string title, std::vector<std::string> menuOptions, std::vector<void (Controller::*)()> functions, bool isRegisterMenu);
 
         void addRegister();
         void editRegister();

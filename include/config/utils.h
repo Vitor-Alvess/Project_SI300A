@@ -18,22 +18,21 @@
 #define IS_WINDOWS 0
 #endif
 
-using namespace std;
-
 #define WIDTH 50
 
 #define SYMBOL "*"
 
 class Utils{
     public:
-        static void functionToSwap(int i, vector<Register*> &list);
+        static void functionToSwap(int i, std::vector<Register*> &list);
         static void listHeader();
-        static void printList(vector<Register*> &list);
+        static void printList(std::vector<Register*> &list);
         static void sleepFunc(unsigned int seconds);
         static void bye();
         static void init();
         static void clear();
         static void pause();
+        static void printStatus(std::string status);
 };
 
 #endif

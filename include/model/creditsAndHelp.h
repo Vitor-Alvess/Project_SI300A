@@ -5,21 +5,19 @@
 
 #include "../config/utils.h"
 
-using namespace std;
-
 class creditsAndHelp{
     private:
-        string title;
-        string message;
-        string end_msg;
-        void setMessage(string message);
+        std::string title;
+        std::string message;
+        std::string end_msg;
+        void setMessage(std::string message);
         void readTextFromFile();
         
     public:
-        creditsAndHelp(string message, string title);
-        string getMessage();
-        const string &getTitle() const;
-        void printMessage(string message);
+        creditsAndHelp(std::string message, std::string title);
+        std::string getMessage();
+        const std::string &getTitle() const;
+        void printMessage(std::string message);
         virtual ~creditsAndHelp();
 };
 

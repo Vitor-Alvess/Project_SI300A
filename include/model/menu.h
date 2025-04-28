@@ -5,36 +5,35 @@
 #include <vector>
 #include "../config/utils.h"
 
-using namespace std;
-
 class Menu{
-    protected:
-        string title;
-        string choice_msg;
-        string symbol;
-        string WelcomeMessage;
+    private:
+        std::string symbol;
+        std::string welcomeMessage;
         bool firstTry;
         int width;
-        vector<string> &options;
-        const string makeDecorator();
         const bool isNotValidOption(unsigned int opt) const;
-        void setWelcomeMessage(string WelcomeMessage);
-
+    protected:
+        std::string title;
+        std::string choiceMsg;
+        std::vector<std::string> &options;
+        const std::string makeDecorator();
     public:
-        Menu(vector<string> &options, string title, string choice_msg = "Opcao: ");
-        const string &getTitle() const;
+        bool isRegisterMenu;
+
+        Menu(std::vector<std::string> &options, std::string title, bool isRegisterMenu, std::string choiceMsg = "Opcao: ");
+
+        const std::string &getTitle() const;
         const int getOption();
 
-        void setDecorator(const string &decorator, int width);
-        
+        void setDecorator(const std::string &decorator, int width);
 
         int getWidth() const;
 		void setWidth(int width = 0);
 
-        const string getSymbol() const;
-		void setSymbol(const string &symbol = "=");
+        const std::string getSymbol() const;
+		void setSymbol(const std::string &symbol = "=");
 
-        string getWelcomeMessage();
+        std::string getWelcomeMessage();
         void printWelcome();
 
         virtual ~Menu();

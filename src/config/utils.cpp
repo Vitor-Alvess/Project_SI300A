@@ -1,5 +1,7 @@
 #include "../../include/config/utils.h"
 
+using namespace std;
+
 void Utils::functionToSwap(int i, vector<Register*> &list){
     string auxStr;
     int auxInt;
@@ -43,6 +45,7 @@ void Utils::functionToSwap(int i, vector<Register*> &list){
 }
 
 void Utils::listHeader(){
+    cout << setfill('-') << setw(200) << "-" << endl;
     cout << left << setfill(' ') << setw(6) << "ID" << " | ";
     cout << left << setfill(' ') << setw(20) << "NOME" << " | ";
     cout << left << setfill(' ') << setw(4) << "ANO" << " | ";
@@ -69,6 +72,9 @@ void Utils::printList(vector<Register*> &list){
         cout << setfill('.') << setw(15) << buffer->getRegisterStreaming() << " | ";
         cout << setfill(' ') << setw(4) << setprecision(1) << fixed << buffer->getRegisterScore() << " | " << endl;
     }
+
+    cout << setfill('-') << setw(200) << "-" << endl;
+    cout << endl;
 }
 
 void Utils::sleepFunc(unsigned int seconds){
@@ -96,4 +102,10 @@ void Utils::pause(){
     } else {
         system("read -p \"\nPressione a tecla enter para voltar...\" saindo");
     }
+}
+
+void Utils::printStatus(string status){
+    cout << setfill('-') << setw(200) << "-" << endl;
+    cout << status << endl;
+    cout << setfill('-') << setw(200) << "-" << endl;
 }

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
+
 creditsAndHelp::creditsAndHelp(string message, string title){
     this->end_msg = end_msg;
     this->title = title;

@@ -1,15 +1,13 @@
 #include "menu.h"
 #include <vector>
 
-using namespace std;
-
 class credits: public Menu{
     private:
-        string message;
-        void setMessage(string message);
+        std::string message;
+        void setMessage(std::string message);
     public:
-        credits(vector<string> &options, string title, string choice_msg = "Pressione qualquer tecla...");
-        string getMessage();
-        void printMessage(string message);
+        credits(std::vector<std::string> &options, std::string title, std::string choice_msg = "Pressione qualquer tecla...");
+        std::string getMessage();
+        void printMessage(std::string message);
         virtual ~credits();
 };

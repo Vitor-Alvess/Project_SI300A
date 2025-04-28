@@ -1,5 +1,7 @@
 #include "../../include/model/register.h"
 
+using namespace std;
+
 int Register::lastId = 0;
 
 Register::Register(int id, string name, int releaseYear, int NumOfSeasons, int episodesTotal,
@@ -14,7 +16,7 @@ Register::Register(string name, int releaseYear, int NumOfSeasons, int episodesT
                     this->id = ++lastId;
                 }
                 
-Register::Register(Register *r){
+Register::Register(Register* r){
     setRegisterName(r->getRegisterName());
     setRegisterReleaseYear(r->getRegisterReleaseYear());
     setRegisterNumOfSeasons(r->getRegisterNumOfSeasons());
@@ -24,6 +26,18 @@ Register::Register(Register *r){
     setRegisterStreaming(r->getRegisterStreaming());
     setRegisterScore(r->getRegisterScore());
     this->id = ++lastId;
+}
+
+Register::Register(int id, Register* r){
+    setRegisterName(r->getRegisterName());
+    setRegisterReleaseYear(r->getRegisterReleaseYear());
+    setRegisterNumOfSeasons(r->getRegisterNumOfSeasons());
+    setRegisterEpisodesTotal(r->getRegisterEpisodesTotal());
+    setRegisterMainPlot(r->getRegisterMainPlot());
+    setRegisterMainCharacters(r->getRegisterMainCharacters());
+    setRegisterStreaming(r->getRegisterStreaming());
+    setRegisterScore(r->getRegisterScore());
+    this->id = id;
 }
 
 Register::~Register(){}
