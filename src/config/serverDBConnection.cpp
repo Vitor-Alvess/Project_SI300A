@@ -40,7 +40,7 @@ sql::Connection* ServerDBConnection::getConnection() const
 void ServerDBConnection::loadEnv(const string path){
 	ifstream file(path);
 	if (!file.is_open()){
-		cerr << "Erro ao abrir o arquivo de configuração: " << path << endl;
+		cerr << "Error: environment variables not found " << path << endl;
 		exit(1);
 	}
 	string line;
